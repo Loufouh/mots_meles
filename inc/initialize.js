@@ -16,7 +16,7 @@ function init() {
 	nrows = 10;
 	content = new Array(ncols*nrows).fill("").map(()=>randomSmiley());
 	gameGrid = new Grid(0, 0, canvas.width, canvas.height, ncols, nrows, content);
-	setInterval(draw, 100);
+	setInterval(draw, 10);
 }
 
 function draw() {
@@ -27,7 +27,12 @@ function draw() {
 	gameGrid.draw();
 	stroke(255, 100, 0);
 	strokeWeight(8)
-	gameGrid.markSolution(randomInt(0, ncols - 1), randomInt(0, nrows - 1), randomInt(0, ncols - 1), randomInt(0, nrows - 1));
+	gameGrid.markSolution({
+		startPosX: randomInt(0, ncols - 1),
+		startPosY: randomInt(0, nrows - 1),
+		endPosX: randomInt(0, ncols - 1),
+		endPosY: randomInt(0, nrows - 1)
+	});
 
 	content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
 }
@@ -35,6 +40,14 @@ function draw() {
 function randomSmiley() {
 	let smileys = [":)", ":d", ";)", ":P"];
 	return smileys[randomInt(0, smileys.length - 1)];
+}
+
+function randomStr(length) {
+	let str = "";
+	
+	for(let i = 0; i < length; i++)
+		str += randomChar();
+	return str;
 }
 
 function randomChar() {

@@ -34,10 +34,9 @@ function grid(xLeft, yTop, width, height, numberOfRows, numberOfCols, ctx=target
 }
 
 function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, content, ctx) {
-    let xScale = width/numberOfCols;
-	let yScale = height/numberOfRows;
+	let scale = new SimpleVector(width/numberOfCols, height/numberOfRows);
         
-    if(content.length != numberOfRows*numberOfCols) {
+	if(content.length != numberOfRows*numberOfCols) {
 		console.error("The content has to much or not enough elements");
 		return;
 	} 
@@ -45,41 +44,39 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 	for(let i = 0; i < numberOfCols; i++) {
 		for(let j = 0; j < numberOfRows; j++) {
 			let str = content[i + j*numberOfCols];
-			let rectX = xLeft + i*xScale;
-			let rectY = yTop + j*yScale;
-			let strWidth, strHeight;
+			let rectPos = new SimpleVector(xLeft + i*scale.x, yTop + j*scale.y);
+			let strDim = new SimpleVector();
 
-			if(xScale/str.length < yScale) {
-				strWidth = (xScale*5/12)/str.length;
-				strHeight = getHeightOfChar(strWidth, FONTSIZE_MODE.WIDTH);
-            } else {
-				strHeight = yScale*12/24;
-               	strWidth = getWidthOfChar(strHeight, FONTSIZE_MODE.HEIGHT);
+			if(scale.x/str.length < scale.y) {
+				strDim.x = (scale.x*5/12)/str.length;
+				strDim.y = getHeightOfChar(strDim.x, FONTSIZE_MODE.WIDTH);
+            		} else {
+				strDim.x = scale.y*12/24;
+               			strDim.y = getWidthOfChar(strDim.y, FONTSIZE_MODE.HEIGHT);
 			}
 			textAlign("center", ctx);
-			font(strWidth, "monospace", FONTSIZE_MODE.WIDTH, ctx);
-			text(rectX + xScale/2, rectY + (yScale + strHeight)/2, str, ctx);
-       	}
+			font(strDim.x, "monospace", FONTSIZE_MODE.WIDTH, ctx);
+			text(rectPos.x + scale.x/2, rectPos.y + (scale.y + strDim.y)/2, str, ctx);
+       		}
 	}
 }
 
 function markSolution(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols) {
-	let xScale = gridWidth/cols;
-	let yScale = gridHeight/rows;
-	line(gridX + xScale*startPosX + xScale/2, gridY + yScale*startPosY + yScale/2, gridX + xScale*endPosX + xScale/2, gridY + yScale*endPosY + yScale/2);
+	let scale = new SimpleVector(gridWidth/cols, gridHeight/rows);
+	line(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2, gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2);
 }
 
 function rows(xLeft, yTop, width, height, numberOfRows, ctx=targetContext) {
-	let scale = height/numberOfRows;
+	let yScale = height/numberOfRows;
 
-	for(let i = yTop; i <= height + yTop; i += scale)
+	for(let i = yTop; i <= height + yTop; i += yScale)
 		line(xLeft, i, xLeft + width, i, ctx);
 }
 
 function columns(xLeft, yTop, width, height, numberOfCols, ctx=targetContext) {
-	let scale = width/numberOfCols;
+	let xScale = width/numberOfCols;
 
-	for(let i = xLeft; i <= width + xLeft; i += scale)
+	for(let i = xLeft; i <= width + xLeft; i += xScale)
 		line(i, yTop, i, yTop + height, ctx);
 }
 
@@ -90,3 +87,4 @@ function line(x1, y1, x2, y2, ctx=targetContext) {
 	ctx.closePath();
 	drawShape(ctx);
 }
+

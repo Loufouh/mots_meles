@@ -5,11 +5,19 @@ class SimpleVector extends Tensor{
 		super([x, y], TENSOR_TYPES.VECTOR);
 	}
 
-	getX() {
+	get x() {
 		return this.data[0];
 	}
 
-	getY() {
+	get y() {
 		return this.data[1];
+	}
+
+	set x(value) {
+		this.data[0] = value;
+	}
+
+	set y(value) {
+		this.data[1] = value;
 	}
 }
