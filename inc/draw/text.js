@@ -1,7 +1,16 @@
 /*
-    ATTENTION : Toute cette partie du code est basée sur les
-                dimensions de la police "monospace"
+ *
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ *  	WARNING: This whole module of code is based on
+ *           	 the dimensions of the font : "monospace"
+ *
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
 */
+
 "use strict";
 
 const WIDTH_COEF = 18/8;
@@ -38,7 +47,7 @@ function getFontSize(size, sizeMode) {
     else if (sizeMode == FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF;
     else {
-        console.error("getFontSize : La nature de la valeur entrée est erronée, il est necessaire de connaitre soit la largeur, soit la hauteur d'un caractère pour calculer la taille de la police !");
+        console.error("The value entered is wrong, it's necessary to know the height or the width of a caractere to deduce the fontsize !");
         return 1;
     }
 }
@@ -49,7 +58,7 @@ function getWidthOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
     else if(sizeMode == FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF/WIDTH_COEF;
     else {
-        console.error("getWidthOfChar : La nature de la valeur entrée est erronée, il est necessaire de connaitre soit la taille de la police, soit la hauteur d'un caractère pour calculer sa largeur !");
+        console.error("The value entered is wrong, it's necessary to know the fontsize or the height of a caractere to deduce its width !");
         return 1;
     }
 }
@@ -60,7 +69,7 @@ function getHeightOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
     else if(sizeMode == FONTSIZE_MODE.WIDTH)
         return size*WIDTH_COEF/HEIGHT_COEF; 
     else {
-        console.error("getHeightOfChar : La nature de la valeur entrée est erronée, il est necessaire de connaitre soit la taille de la police, soit la largeur d'un caractère pour calculer sa hauteur !");
+        console.error("The value entered is wrong, it's necessary to know the fontsize or the width of a caractere to deduce its height !");
         return 1;
     }
 }
