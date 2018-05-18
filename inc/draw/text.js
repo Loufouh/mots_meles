@@ -47,8 +47,7 @@ function getFontSize(size, sizeMode) {
     else if (sizeMode == FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF;
     else {
-        console.error("The value entered is wrong, it's necessary to know the height or the width of a caractere to deduce the fontsize !");
-        return 1;
+        return error("The value entered is wrong, it's necessary to know the height or the width of a caractere to deduce the fontsize !", 1);
     }
 }
 
@@ -58,8 +57,7 @@ function getWidthOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
     else if(sizeMode == FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF/WIDTH_COEF;
     else {
-        console.error("The value entered is wrong, it's necessary to know the fontsize or the height of a caractere to deduce its width !");
-        return 1;
+        return error("The value entered is wrong, it's necessary to know the fontsize or the height of a caractere to deduce its width !", 1);
     }
 }
 
@@ -69,7 +67,6 @@ function getHeightOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
     else if(sizeMode == FONTSIZE_MODE.WIDTH)
         return size*WIDTH_COEF/HEIGHT_COEF; 
     else {
-        console.error("The value entered is wrong, it's necessary to know the fontsize or the width of a caractere to deduce its height !");
-        return 1;
+        return error("The value entered is wrong, it's necessary to know the fontsize or the width of a caractere to deduce its height !", 1);
     }
 }

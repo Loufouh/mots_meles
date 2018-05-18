@@ -27,7 +27,7 @@ function draw() {
 	gameGrid.draw();
 	stroke(255, 100, 0);
 	strokeWeight(8)
-	gameGrid.markSolution({
+	gameGrid.markLine({
 		startPosX: randomInt(0, ncols - 1),
 		startPosY: randomInt(0, nrows - 1),
 		endPosX: randomInt(0, ncols - 1),

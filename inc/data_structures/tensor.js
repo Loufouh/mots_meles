@@ -1,13 +1,18 @@
 "use strict";
 
 let TENSOR_TYPES = {
-	SCALAR: 0,
-	VECTOR: 1,
-	MATRIX: 2
+	SCALAR: "scalar",
+	VECTOR: "vector",
+	MATRIX: "matrix"
 }
 
 class Tensor {
 	constructor(data, type) {
+		if(type != TENSOR_TYPES.SCALAR && type != TENSOR_TYPES.VECTOR && type != TENSOR_TYPES.MATRIX) {
+			console.warn("Tensor type is not expected, it will be defined as a scalar.");
+			type = TENSOR_TYPES.SCALAR;
+		}
+				
 		this.data = data;
 		this.type = type;	
 	}

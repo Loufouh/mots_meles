@@ -33,13 +33,11 @@ function grid(xLeft, yTop, width, height, numberOfRows, numberOfCols, ctx=target
 	columns(xLeft, yTop, width, height, numberOfCols, ctx);
 }
 
-function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, content, ctx) {
+function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, content, ctx=targetContent) {
 	let scale = new SimpleVector(width/numberOfCols, height/numberOfRows);
         
-	if(content.length != numberOfRows*numberOfCols) {
-		console.error("The content has to much or not enough elements");
-		return;
-	} 
+	if(content.length != numberOfRows*numberOfCols)
+		return error("The content has to much or not enough elements");
         
 	for(let i = 0; i < numberOfCols; i++) {
 		for(let j = 0; j < numberOfRows; j++) {
@@ -61,9 +59,9 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 	}
 }
 
-function markSolution(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols) {
+function markLineOnGrid(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols, ctx=targetContext) {
 	let scale = new SimpleVector(gridWidth/cols, gridHeight/rows);
-	line(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2, gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2);
+	line(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2, gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2, ctx);
 }
 
 function rows(xLeft, yTop, width, height, numberOfRows, ctx=targetContext) {
