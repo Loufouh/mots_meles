@@ -33,7 +33,7 @@ function grid(xLeft, yTop, width, height, numberOfRows, numberOfCols, ctx=target
 	columns(xLeft, yTop, width, height, numberOfCols, ctx);
 }
 
-function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, content, ctx=targetContent) {
+function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, content, ctx=targetContext) {
 	let scale = new SimpleVector(width/numberOfCols, height/numberOfRows);
         
 	if(content.length != numberOfRows*numberOfCols)
@@ -43,25 +43,18 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 		for(let j = 0; j < numberOfRows; j++) {
 			let str = content[i + j*numberOfCols];
 			let rectPos = new SimpleVector(xLeft + i*scale.x, yTop + j*scale.y);
-			let strDim = new SimpleVector();
 
-			if(scale.x/str.length < scale.y) {
-				strDim.x = (scale.x*5/12)/str.length;
-				strDim.y = getHeightOfChar(strDim.x, FONTSIZE_MODE.WIDTH);
-            		} else {
-				strDim.x = scale.y*12/24;
-               			strDim.y = getWidthOfChar(strDim.y, FONTSIZE_MODE.HEIGHT);
-			}
-			textAlign("center", ctx);
-			font(strDim.x, "monospace", FONTSIZE_MODE.WIDTH, ctx);
-			text(rectPos.x + scale.x/2, rectPos.y + (scale.y + strDim.y)/2, str, ctx);
-       		}
+			textFitInBox(rectPos.x, rectPos.y, scale.x, scale.y, str, ctx);
+		}
 	}
 }
 
 function markLineOnGrid(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols, ctx=targetContext) {
 	let scale = new SimpleVector(gridWidth/cols, gridHeight/rows);
-	line(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2, gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2, ctx);
+	let absoluteStartPos = new SimpleVector(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2);
+	let absoluteEndPos = new SimpleVector(gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2);
+
+	line(absoluteStartPos.x, absoluteStartPos.y, absoluteEndPos.x, absoluteEndPos.y, ctx);
 }
 
 function rows(xLeft, yTop, width, height, numberOfRows, ctx=targetContext) {
