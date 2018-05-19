@@ -38,7 +38,7 @@ function draw() {
 }
 
 function randomSmiley() {
-	let smileys = [":)", ":d", ";)", ":P"];
+	let smileys = ["😅", "😄", "😃", "😂", "😁", "😆", "😉", "😊", "😋", "😌", "😒"];
 	return smileys[randomInt(0, smileys.length - 1)];
 }
 

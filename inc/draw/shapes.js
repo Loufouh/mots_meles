@@ -37,7 +37,7 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 	let scale = new SimpleVector(width/numberOfCols, height/numberOfRows);
         
 	if(content.length != numberOfRows*numberOfCols)
-		return error("The content has to much or not enough elements");
+		return error("The content has to much or not enough elements ");
         
 	for(let i = 0; i < numberOfCols; i++) {
 		for(let j = 0; j < numberOfRows; j++) {
@@ -51,8 +51,10 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 
 function markLineOnGrid(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols, ctx=targetContext) {
 	let scale = new SimpleVector(gridWidth/cols, gridHeight/rows);
-	let absoluteStartPos = new SimpleVector(gridX + scale.x*startPosX + scale.x/2, gridY + scale.y*startPosY + scale.y/2);
-	let absoluteEndPos = new SimpleVector(gridX + scale.x*endPosX + scale.x/2, gridY + scale.y*endPosY + scale.y/2);
+	let absoluteStartPos = new SimpleVector(gridX + scale.x*startPosX + scale.x/2,
+		       				gridY + scale.y*startPosY + scale.y/2);
+	let absoluteEndPos = new SimpleVector(gridX + scale.x*endPosX + scale.x/2,
+		       			      gridY + scale.y*endPosY + scale.y/2);
 
 	line(absoluteStartPos.x, absoluteStartPos.y, absoluteEndPos.x, absoluteEndPos.y, ctx);
 }
