@@ -9,6 +9,8 @@ class Grid {
 
 		this.gridDimensions = new SimpleVector(cols, rows);
 		this.numberOfBoxes = cols*rows;
+		
+		this.setContent(content);
 	}
 
 	draw(ctx=targetContext) {
@@ -33,6 +35,7 @@ class Grid {
 	setGridDimensions(cols, rows) {
 		this.gridDimensions = new SimpleVector(cols, rows);
 		this.numberOfBoxes = cols*rows;
+		this.content.fit(this.numberOfBoxes, "");
 	}
 
 	setRealDimensions(width, height) {
