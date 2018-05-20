@@ -26,24 +26,3 @@ Array.prototype.extend = function (wantedLength, objectToFill) {
 		this.push(objectToFill);
 	return this
 }
-
-Array.prototype.getElementsBeginingBy = function (str) {
-	let elements = new Array(0);
-	let addCurrentElement;
-
-	for(let i = 0; i < this.length; i++) {
-		if(this[i].length >= str.length) {
-			addCurrentElement = true;
-			for(let j = 0; j < str.length && addCurrentElement; j++) {
-				if(this[i][j] != str[j])
-					addCurrentElement = false;
-				console.log(this[i][j] + " ; " + str[j] + " ; " + addCurrentElement);
-			}
-	
-			if(addCurrentElement)
-				elements.push(this[i]);
-		}
-	}
-	return elements;
-}
-
