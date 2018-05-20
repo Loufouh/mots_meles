@@ -15,11 +15,6 @@ class Grid {
 		filledGrid(this.pos.x, this.pos.y, this.realDimensions.x, this.realDimensions.y, this.gridDimensions.x, this.gridDimensions.y, this.content, ctx);
 	}
 
-	markLine(solutions, ctx=targetContext) {
-		for(let i = 0; i < solutions.length; i++)
-			this.markSolution(solutions[i], ctx);
-	}
-
 	markLine(linePos, ctx=targetContext) {
 		markLineOnGrid(linePos.startPosX, linePos.startPosY, linePos.endPosX, linePos.endPosY, 
 				this.pos.x, this.pos.y, this.realDimensions.x, this.realDimensions.y, 
@@ -38,6 +33,11 @@ class Grid {
 	setGridDimensions(cols, rows) {
 		this.gridDimensions = new SimpleVector(cols, rows);
 		this.numberOfBoxes = cols*rows;
+	}
+
+	setRealDimensions(width, height) {
+		this.realDimensions = new SimpleVector(width, height);
+		this.scales = new SimpleVector(width/this.gridDimensions.x, height/this.gridDImensions.y);
 	}
 }
 
