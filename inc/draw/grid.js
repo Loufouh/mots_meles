@@ -3,12 +3,12 @@
 class Grid {
 	constructor(x, y, width, height, cols, rows, content) {
 		this.pos = new SimpleVector(x, y);
-		this.realDimensions = new SimpleVector(width, height)
-		this.gridDimensions = new SimpleVector(cols, rows);
-		this.scales = new SimpleVector(width/cols, height/rows);
-		this.numberOfBoxes = cols*rows;
 
-		this.setContent(content);
+		this.realDimensions = new SimpleVector(width, height);
+		this.scales = new SimpleVector(width/cols, height/rows);
+
+		this.gridDimensions = new SimpleVector(cols, rows);
+		this.numberOfBoxes = cols*rows;
 	}
 
 	draw(ctx=targetContext) {
@@ -37,7 +37,7 @@ class Grid {
 
 	setRealDimensions(width, height) {
 		this.realDimensions = new SimpleVector(width, height);
-		this.scales = new SimpleVector(width/this.gridDimensions.x, height/this.gridDImensions.y);
+		this.scales = new SimpleVector(width/this.gridDimensions.x, height/this.gridDimensions.y);
 	}
 }
 
