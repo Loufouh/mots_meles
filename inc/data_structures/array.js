@@ -26,3 +26,11 @@ Array.prototype.extend = function (wantedLength, objectToFill) {
 		this.push(objectToFill);
 	return this
 }
+
+Array.prototype.indexOfSequenceInReverse = function (str) {
+	return this.slice().reverse().indexOfSequence(str);
+}	
+
+Array.prototype.indexOfSequence = function (str) {
+	return this.join("").indexOf(str);
+}
