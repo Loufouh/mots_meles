@@ -16,7 +16,7 @@ function init() {
 	nrows = 10;
 	content = new Array(ncols*nrows).fill("").map(()=>randomSmiley());
 	gameGrid = new Grid(0, 0, canvas.width, canvas.height, ncols, nrows, content);
-	setInterval(draw, 10);
+	//setInterval(draw, 10);
 	draw();
 }
 
@@ -35,7 +35,7 @@ function draw() {
 		endPosY: randomInt(0, nrows - 1)
 	});
 
-	content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
+	//content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
 }
 
 function randomSmiley() {
