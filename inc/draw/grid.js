@@ -42,5 +42,20 @@ class Grid {
 		this.realDimensions = new SimpleVector(width, height);
 		this.scales = new SimpleVector(width/this.gridDimensions.x, height/this.gridDimensions.y);
 	}
+
+
+	getColumn(index) {
+		if(index < 0 || index >= this.gridDimensions.x)
+				return error("The index entered is out of the grid !", new Array(this.gridDimensions.y).fill(""));
+
+		return new Array(this.gridDimensions.y).fill().map((x, i) => this.content[index + i*this.gridDimensions.x]);
+	}	
+
+	getRow(index) {
+		if(index < 0 || index >= this.gridDimensions.y)
+				return error("The index entered is out of the grid !", new Array(this.gridDimensions.x).fill(""));
+
+		return new Array(this.gridDimensions.x).fill().map((x, i) => this.content[i + index*this.gridDimensions.x]);
+	}
 }
 
