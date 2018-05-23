@@ -28,6 +28,7 @@ function draw() {
 	gameGrid.draw();
 	stroke(255, 100, 0);
 	strokeWeight(8)
+	lineCap("round");
 	gameGrid.markLine({
 		startPosX: randomInt(0, ncols - 1),
 		startPosY: randomInt(0, nrows - 1),
@@ -35,7 +36,7 @@ function draw() {
 		endPosY: randomInt(0, nrows - 1)
 	});
 
-	//content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
+	content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
 }
 
 function randomSmiley() {

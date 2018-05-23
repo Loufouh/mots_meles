@@ -46,14 +46,14 @@ class Grid {
 
 	getColumn(index) {
 		if(index < 0 || index >= this.gridDimensions.x)
-				return error("The index entered is out of the grid !", new Array(this.gridDimensions.y).fill(""));
+			return error("The index entered is out of the grid !", new Array(this.gridDimensions.y).fill(""));
 
 		return new Array(this.gridDimensions.y).fill().map((x, i) => this.content[index + i*this.gridDimensions.x]);
 	}	
 
 	getRow(index) {
 		if(index < 0 || index >= this.gridDimensions.y)
-				return error("The index entered is out of the grid !", new Array(this.gridDimensions.x).fill(""));
+			return error("The index entered is out of the grid !", new Array(this.gridDimensions.x).fill(""));
 
 		return new Array(this.gridDimensions.x).fill().map((x, i) => this.content[i + index*this.gridDimensions.x]);
 	}
@@ -61,7 +61,7 @@ class Grid {
 	// shape of the left diagonal : \
 	getLeftDiagonal(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
-				return error("The position entered is out of the grid !", new Array(1).fill(""));
+			return error("The position entered is out of the grid !", new Array(1).fill(""));
 
 		let distanceRight = this.gridDimensions.x - x;
 		let distanceDown = this.gridDimensions.y - y;
@@ -73,29 +73,32 @@ class Grid {
 	// shape of the right diagonal : /
 	getRightDiagonal(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
-				return error("The position entered is out of the grid !", new Array(1).fill(""));
+			return error("The position entered is out of the grid !", new Array(1).fill(""));
 	
 	}
 
 	// get the position in wich the diagonal goes through in the first column or in the first row
 	getLeftDiagonalOrigin(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
-				return error("The position entered is out of the grid !", new SimpleVector(0, 0));
+			return error("The position entered is out of the grid !", new SimpleVector(0, 0));
 
 		let valueToSubstract = (x < y) ? x : y;
-
 		return new SimpleVector(x - valueToSubstract, y - valueToSubstract);
 	}
 
 	// get the position in wich the diagonal goes through in the last column or in the first row
 	getRightDiagonalOrigin(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
-				return error("The position entered is out of the grid !", new SimpleVector(0, 0));
+			return error("The position entered is out of the grid !", new SimpleVector(0, 0));
 
-		if(y < this.gridDimensions.x - x)
-				return new SimpleVector(x + y, 0);
+		let distanceTop = y;
+		let distanceRight = this.gridDimensions.x - (x + 1);
+
+		if(distanceTop < distanceRight)
+			return new SimpleVector(x + distanceTop, 0);
 		else
-				return new SimpleVector(this.gridDimensions.x - 1, y - this.gridDimensions.x - x);
+			return new SimpleVector(this.gridDimensions.x - 1, y - distanceRight);
 	}
+	
 }
 

@@ -31,6 +31,10 @@ function noStroke() {
 	isStroking = false;
 }
 
+function lineCap(type, ctx=targetContext) {
+	ctx.lineCap = type;
+}
+
 function drawShape(ctx=targetContext) {
 	if(isFilling)
 		ctx.fill();
