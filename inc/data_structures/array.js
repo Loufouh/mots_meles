@@ -56,6 +56,7 @@ Array.prototype.contains = function (object, conditionFunc=undefined, useExterna
 	}
 	return false;
 }
+
 Array.prototype.indexOfSequenceInReverse = function (str) {
 	return this.slice().reverse().indexOfSequence(str);
 }	
