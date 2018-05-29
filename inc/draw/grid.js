@@ -62,19 +62,29 @@ class Grid {
 	getLeftDiagonal(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
 			return error("The position entered is out of the grid !", new Array(1).fill(""));
+		let origin = this.getLeftDiagonalOrigin(x, y);
+		let originArrayPos = this.gridDimensions.y*origin.y + origin.x;
+		let distance = new SimpleVector(this.gridDimensions.x - origin.x, this.gridDimensions.y - origin.y);
+		length = (distance.x < distance.y) ? distance.x : distance.y
 
-		let distanceRight = this.gridDimensions.x - x;
-		let distanceDown = this.gridDimensions.y - y;
-
-		return new Array((distanceRight < distanceDown) ? distanceRight : distanceDown).fill().map((x, i) => this.content[i*(this.gridDimensions.x + 1)]);
-
+		return new Array(length).fill().map((x, i) => this.content[originArrayPos + i*(this.gridDimensions.y + 1)]);
 	}
+
+
+
 
 	// shape of the right diagonal : /
 	getRightDiagonal(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
 			return error("The position entered is out of the grid !", new Array(1).fill(""));
-	
+
+		let origin = this.getRightDiagonalOrigin(x, y);
+		let originArrayPos = this.gridDimensions.y*origin.y + origin.x;
+		let distance = new SimpleVector(origin.x + 1, this.gridDimensions.y - origin.y); 
+		length = (distance.x < distance.y) ? distance.x : distance.y
+
+		return new Array(length).fill()
+					.map((x, i) => this.content[originArrayPos + i*(this.gridDimensions.y - 1)]);
 	}
 
 	// get the position in wich the diagonal goes through in the first column or in the first row
