@@ -3,7 +3,7 @@
 let canvas;
 let ncols, nrows, content;
 
-let gameGrid;
+let puzzle;
 
 window.onload = init;
 
@@ -14,29 +14,24 @@ function init() {
 	canvas.height = 1000;
 	ncols = 10;
 	nrows = 10;
-	content = new Array(ncols*nrows).fill("").map(()=>randomSmiley());
-	gameGrid = new Grid(0, 0, canvas.width, canvas.height, ncols, nrows, content);
-	//setInterval(draw, 10);
+	//content = new Array(ncols*nrows).fill("").map(()=>randomSmiley());
+	puzzle = new Puzzle(new Grid(0, 0, canvas.width, canvas.height, 12, 13, new Tensor(laGrille1, TENSOR_TYPES.MATRIX)), lesMots1);
 	draw();
 }
 
 function draw() {
 	background(255);
+
 	stroke();
 	strokeWeight(1);
 	fill();
-	gameGrid.draw();
+
+	puzzle.grid.draw();
+
 	stroke(255, 100, 0);
 	strokeWeight(8)
-	lineCap("round");
-	gameGrid.markLine({
-		startPosX: randomInt(0, ncols - 1),
-		startPosY: randomInt(0, nrows - 1),
-		endPosX: randomInt(0, ncols - 1),
-		endPosY: randomInt(0, nrows - 1)
-	});
 
-	content[randomInt(0, ncols*nrows - 1)] = randomSmiley();
+	puzzle.markSolutions();
 }
 
 function randomSmiley() {

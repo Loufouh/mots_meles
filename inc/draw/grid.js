@@ -18,7 +18,7 @@ class Grid {
 	}
 
 	markLine(linePos, ctx=targetContext) {
-		markLineOnGrid(linePos.startPosX, linePos.startPosY, linePos.endPosX, linePos.endPosY, 
+		markLineOnGrid(linePos.startX, linePos.startY, linePos.endX, linePos.endY, 
 				this.pos.x, this.pos.y, this.realDimensions.x, this.realDimensions.y, 
 				this.gridDimensions.x, this.gridDimensions.y, ctx);
 	}

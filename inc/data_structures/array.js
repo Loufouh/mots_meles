@@ -11,6 +11,21 @@ function toArray(object, length=1) {
 		}
 }
 
+function arraysAreEquals(arr1, arr2) {
+	if(arr1 === arr2)
+		return true;
+	else if(arr1 == undefined || arr2 == undefined)
+		return false;
+	else if(arr1.length != arr2.length)
+		return false;
+
+	for(let i = 0; i < arr1.length; i++) {
+		if(arr1[i] != arr2[i])
+			return false;
+	}
+	return true;
+}
+
 Array.prototype.fit = function (wantedLength, objectToFill) {
 	if(this.length < wantedLength)
 		return this.extend(wantedLength, objectToFill);
@@ -27,6 +42,20 @@ Array.prototype.extend = function (wantedLength, objectToFill) {
 	return this
 }
 
+Array.prototype.contains = function (object, conditionFunc=undefined, useExternalFunc=false) {
+	if(useExternalFunc == false) {
+		if(this.indexOf(object) >= 0)
+			return true;
+		else
+			return false;
+	}
+
+	for(let i = 0; i < this.length; i++) {
+		if(conditionFunc(this[i], object))
+			return true;
+	}
+	return false;
+}
 Array.prototype.indexOfSequenceInReverse = function (str) {
 	return this.slice().reverse().indexOfSequence(str);
 }	
