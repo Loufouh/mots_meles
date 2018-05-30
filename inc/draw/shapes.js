@@ -49,28 +49,52 @@ function gridContent(xLeft, yTop, width, height, numberOfRows, numberOfCols, con
 	}
 }
 
-function markLineOnGrid(startPosX, startPosY, endPosX, endPosY, gridX, gridY, gridWidth, gridHeight, rows, cols, ctx=targetContext) {
-	let scale = new SimpleVector(gridWidth/cols, gridHeight/rows);
-	let absoluteStartPos = new SimpleVector(gridX + scale.x*startPosX + scale.x/2,
-		       				gridY + scale.y*startPosY + scale.y/2);
-	let absoluteEndPos = new SimpleVector(gridX + scale.x*endPosX + scale.x/2,
-		       			      gridY + scale.y*endPosY + scale.y/2);
+function markLineOnGrid(lineStartPosX, lineStartPosY, lineEndPosX, lineEndPosY, gridPosX, gridPosY, scaleX, scaleY, ctx=targetContext) {
+	let scale = new SimpleVector(scaleX, scaleY);
 
-	line(absoluteStartPos.x, absoluteStartPos.y, absoluteEndPos.x, absoluteEndPos.y, ctx);
+	let absoluteStartCasePos = getCasePositionOnGrid(new SimpleVector(gridPosX, gridPosY),
+													 new SimpleVector(scale.x, scale.y),
+													 new SimpleVector(lineStartPosX, lineStartPosY));
+
+	let absoluteEndCasePos = getCasePositionOnGrid(new SimpleVector(gridPosX, gridPosY),
+												   new SimpleVector(scale.x, scale.y),
+												   new SimpleVector(lineEndPosX, lineEndPosY));
+
+	let absoluteStartPos = new SimpleVector(absoluteStartCasePos.x + scale.x/2,
+		       								absoluteStartCasePos.y + scale.y/2);
+
+	let absoluteEndPos = new SimpleVector(absoluteEndCasePos.x + scale.x/2,
+		       			      			  absoluteEndCasePos.y + scale.y/2);
+
+	//line(absoluteStartPos.x, absoluteStartPos.y, absoluteEndPos.x, absoluteEndPos.y, ctx);
+	line(absoluteStartCasePos.x + scale.x/2, absoluteStartCasePos.y + scale.y/2, absoluteEndCasePos.x + scale.x/2, absoluteEndCasePos.y + scale.y/2, ctx);
 }
 
 function rows(xLeft, yTop, width, height, numberOfRows, ctx=targetContext) {
-	let yScale = height/numberOfRows;
+	let scaleY = height/numberOfRows
 
-	for(let i = yTop; i <= height + yTop; i += yScale)
-		line(xLeft, i, xLeft + width, i, ctx);
+	for(let i = 0; i < numberOfRows; i++) {
+		let currentCasePos = getCasePositionOnGrid(new SimpleVector(xLeft, yTop),
+											   new SimpleVector(1, scaleY),
+											   new SimpleVector(0, i));
+		line(currentCasePos.x, currentCasePos.y, currentCasePos.x + width, currentCasePos.y, ctx);
+	}
 }
 
 function columns(xLeft, yTop, width, height, numberOfCols, ctx=targetContext) {
-	let xScale = width/numberOfCols;
+	let scaleX = width/numberOfCols;
 
-	for(let i = xLeft; i <= width + xLeft; i += xScale)
-		line(i, yTop, i, yTop + height, ctx);
+	for(let i = 0; i <= numberOfCols; i++) {
+		let currentCasePos = getCasePositionOnGrid(new SimpleVector(xLeft, yTop),
+											   new SimpleVector(scaleX, 1),
+											   new SimpleVector(i, 0));
+		line(currentCasePos.x, currentCasePos.y, currentCasePos.x, currentCasePos.y + height, ctx);
+	}
+}
+
+function getCasePositionOnGrid(gridPos, scale, relativeCasePos) {
+	return new SimpleVector(gridPos.x + scale.x*relativeCasePos.x,
+							gridPos.y + scale.y*relativeCasePos.y);
 }
 
 function line(x1, y1, x2, y2, ctx=targetContext) {

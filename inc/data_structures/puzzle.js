@@ -6,12 +6,12 @@ class Puzzle {
 		this.words = words;
 		this.solutions = new Array();
 		this.guessSolutions();
+		this.solutions.push(new LinePosition(0, 0, 5, 0));
 	}
 
 	markSolutions(ctx=targetContext) {
-		for(let i = 0; i < this.solutions.length; i++) {
+		for(let i = 0; i < this.solutions.length; i++)
 			this.grid.markLine(this.solutions[i]);
-		}
 	}
 
 	guessSolutions() {

@@ -12,10 +12,10 @@ function init() {
 	setTargetContext(canvas.getContext("2d"));
 	canvas.width = 1000;
 	canvas.height = 1000;
-	ncols = 10;
-	nrows = 10;
+	ncols = 12;
+	nrows = 13;
 	//content = new Array(ncols*nrows).fill("").map(()=>randomSmiley());
-	puzzle = new Puzzle(new Grid(0, 0, canvas.width, canvas.height, 12, 13, new Tensor(laGrille1, TENSOR_TYPES.MATRIX)), lesMots1);
+	puzzle = new Puzzle(new Grid(0, 0, canvas.width, canvas.height, ncols, nrows, new Tensor(laGrille1, TENSOR_TYPES.MATRIX)), lesMots1);
 	draw();
 }
 

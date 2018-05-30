@@ -18,9 +18,10 @@ class Grid {
 	}
 
 	markLine(linePos, ctx=targetContext) {
-		markLineOnGrid(linePos.startX, linePos.startY, linePos.endX, linePos.endY, 
-				this.pos.x, this.pos.y, this.realDimensions.x, this.realDimensions.y, 
-				this.gridDimensions.x, this.gridDimensions.y, ctx);
+		markLineOnGrid(linePos.startX, linePos.startY, 
+			       linePos.endX, linePos.endY, 
+			       this.pos.x, this.pos.y, 
+			       this.scales.x, this.scales.y, ctx);
 	}
 
 	setContent(content) {
@@ -62,10 +63,11 @@ class Grid {
 	getLeftDiagonal(x, y) {
 		if(x < 0 || x >= this.gridDimensions.x || y < 0 || y >= this.gridDimensions.y)
 			return error("The position entered is out of the grid !", new Array(1).fill(""));
+
 		let origin = this.getLeftDiagonalOrigin(x, y);
 		let originArrayPos = this.gridDimensions.y*origin.y + origin.x;
 		let distance = new SimpleVector(this.gridDimensions.x - origin.x, this.gridDimensions.y - origin.y);
-		length = (distance.x < distance.y) ? distance.x : distance.y
+		let length = (distance.x < distance.y) ? distance.x : distance.y
 
 		return new Array(length).fill().map((x, i) => this.content[originArrayPos + i*(this.gridDimensions.y + 1)]);
 	}
@@ -81,7 +83,7 @@ class Grid {
 		let origin = this.getRightDiagonalOrigin(x, y);
 		let originArrayPos = this.gridDimensions.y*origin.y + origin.x;
 		let distance = new SimpleVector(origin.x + 1, this.gridDimensions.y - origin.y); 
-		length = (distance.x < distance.y) ? distance.x : distance.y
+		let length = (distance.x < distance.y) ? distance.x : distance.y
 
 		return new Array(length).fill()
 					.map((x, i) => this.content[originArrayPos + i*(this.gridDimensions.y - 1)]);
