@@ -15,29 +15,28 @@ class Puzzle {
 	}
 
 	guessSolutions() {
-		for(let i = 0; i < this.grid.height; i++) {
+		for(let i = 0; i < this.grid.gridDimensions.y; i++) {
 			this.verifyCase(0, i);
-			this.verifyCase(this.grid.gridDimensions - 1, i);
+			this.verifyCase(this.grid.gridDimensions.x - 1, i);
 		}
 
-		for(let i = 0; i < this.grid.width; i++) {
+		for(let i = 0; i < this.grid.gridDimensions.x; i++) {
 			this.verifyCase(i, 0)
 		}
 	}
 
 	verifyCase(x, y) {
-		this.verifyHorizontal(y);
-		this.verifyVertical(x);
+		this.verifyRow(y);
+		this.verifyColumn(x);
 		this.verifyLeftDiagonal(x, y);
 		this.verifyRightDiagonal(x, y);
-
 	}
 
-	verifyHorizontal(y) {
+	verifyRow(y) {
 		for(let i = 0; i < this.words.length; i++) {
-			let horizontal = this.grid.getHorizontal(y);
-			let index = horizontal.indexOfSequence(this.words[i]);
-			let reverseIndex = horizontal.indexOfSequenceInReverse(this.words[i]);
+			let row = this.grid.getRow(y);
+			let index = row.indexOfSequence(this.words[i]);
+			let reverseIndex = row.indexOfSequenceInReverse(this.words[i]);
 			
 			if(index >= 0)
 				this.addSolution(index, 
@@ -46,18 +45,18 @@ class Puzzle {
 						 y);
 
 			else if(reverseIndex >= 0)
-				this.addSolution((horizontal.length - 1) - reverseIndex,
+				this.addSolution((row.length - 1) - reverseIndex,
 						 y,
-						 (horizontal.length - 1) - ( reverseIndex - (this.words[i].length - 1) ), 
+						 (row.length - 1) - ( reverseIndex - (this.words[i].length - 1) ), 
 						 y);
 		}
 	}
 
-	verifyVertical(x) {
+	verifyColumn(x) {
 		for(let i = 0; i < this.words.length; i++) {
-			let vertical = this.grid.getVertical(x);
-			let index = vertical.indexOfSequence(this.words[i]);
-			let reverseIndex = horizontal.indexOfSequenceInReverse(this.words[i]);
+			let column = this.grid.getColumn(x);
+			let index = column.indexOfSequence(this.words[i]);
+			let reverseIndex = column.indexOfSequenceInReverse(this.words[i]);
 
 			if(index >= 0)
 				this.addSolution(x,
@@ -67,9 +66,9 @@ class Puzzle {
 
 			else if(reverseIndex >= 0)
 				this.addSolution(x,
-						 (vertical.length - 1) - reverseIndex, 
+						 (column.length - 1) - reverseIndex, 
 						 x,
-						 (vertical.length - 1) - (this.words[i].length - 1));
+						 (column.length - 1) - (this.words[i].length - 1));
 		}
 		
 	}
@@ -79,7 +78,7 @@ class Puzzle {
 			let diagonal = this.grid.getLeftDiagonal(x, y);
 			let diagonalOrigin = this.grid.getLeftDiagonalOrigin(x, y);
 			let index = diagonal.indexOfSequence(this.words[i]);
-			let reverseIndex = diagonl.indexOfSequenceInReverse(this.words[i]);
+			let reverseIndex = diagonal.indexOfSequenceInReverse(this.words[i]);
 
 			if(index >= 0)
 				this.addSolution(diagonalOrigin.x + index,
@@ -100,8 +99,8 @@ class Puzzle {
 		for(let i = 0; i < this.words.length; i++) {
 			let diagonal = this.grid.getRightDiagonal(x, y);
 			let diagonalOrigin = this.grid.getRightDiagonalOrigin(x, y);
-			let index = diagonal.getIndexOfSequence(this.words[i]);
-			let reverseIndex = diagonal.getIndexOfSequenceInReverse(this.words[i]);
+			let index = diagonal.indexOfSequence(this.words[i]);
+			let reverseIndex = diagonal.indexOfSequenceInReverse(this.words[i]);
 
 		if(index >= 0)
 			this.addSolution(diagonalOrigin.x - index,
@@ -120,7 +119,7 @@ class Puzzle {
 	addSolution(x1, y1, x2, y2) {
 		let linePos = new LinePosition(x1, y1, x2, y2);
 
-		if(!this.solutions,contains(linePos, LinePosition.areEquals, true))
+		if(!this.solutions.contains(linePos, LinePosition.areEquals, true))
 			this.solutions.push(linePos);
 	}
 }
